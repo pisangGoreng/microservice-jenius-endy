@@ -9,6 +9,15 @@ export class UsersService {
     private usersRepository: UsersRepository,
     ) {}
 
+  public async find(): Promise<[User[], Error]> {
+    const [users, error] = await this.usersRepository.findAll()
+    if (error) {
+      return [null, error]
+    }
+
+    return [users, null];
+  }
+
   public async findOne(payloads): Promise<[User , Error]>  {
     const [user, error] = await this.usersRepository.findOne(payloads)
     if (error) {

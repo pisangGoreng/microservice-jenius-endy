@@ -3,17 +3,41 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mapKeys, snakeCase } from 'lodash'
 
-import { Request, Response, NextFunction } from 'express';
-
 @Injectable()
-export class RegisterInterceptor implements NestInterceptor {
+export class FindInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next
       .handle()
       .pipe(
         map((data) => {
           const parsedData = JSON.parse(JSON.stringify(data))
-          console.log('meong meong');
+
+          const serializeData = parsedData.map(data => {
+            delete data.__v
+            delete data.password
+            delete data.createdAt
+            delete data.updatedAt
+
+            return mapKeys(data, (value, key) => snakeCase(key));
+          })
+
+          return {
+            status_code: context.switchToHttp().getResponse().statusCode,
+            message: 'ok',
+            data: serializeData
+          }
+        }))
+  }
+}
+
+
+export class FindOneInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    return next
+      .handle()
+      .pipe(
+        map((data) => {
+          const parsedData = JSON.parse(JSON.stringify(data))
 
           delete parsedData.__v
           delete parsedData.password
@@ -24,28 +48,9 @@ export class RegisterInterceptor implements NestInterceptor {
 
           return {
             status_code: context.switchToHttp().getResponse().statusCode,
-            message: 'success create new user',
+            message: 'ok',
             data: serializeData
           }
         }))
   }
 }
-
-@Injectable()
-export class LoginInterceptor implements NestInterceptor {
-  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    return next
-      .handle()
-      .pipe(
-        map((response) => {
-          return {
-            status_code: context.switchToHttp().getResponse().statusCode,
-            message: response.message,
-            data: response.data
-          }
-        }))
-  }
-}
-
-
-

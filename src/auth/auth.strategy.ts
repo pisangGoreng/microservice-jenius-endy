@@ -18,8 +18,7 @@ export class JwtStrategy extends PassportStrategy(StrategyJwt) {
   }
 
   async validate(payload: any) {
-    console.log("🚀 ~ file: jwt.strategy.ts ~ line 40 ~ JwtStrategy ~ validate ~ payload", payload)
-    return { userId: payload.sub, username: payload.username };
+    return { user: payload };
   }
 }
 
@@ -31,6 +30,8 @@ export class LocalStrategy extends PassportStrategy(StrategyLocal) {
   }
 
   async validate(username: string, password: string): Promise<any> {
+    console.log('masuk ke LocalStrategy');
+
     const user = await this.authService.validateUser(username, password);
     if (!user) {
       throw new UnauthorizedException();

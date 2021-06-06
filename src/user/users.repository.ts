@@ -9,9 +9,21 @@ export class UsersRepository {
     @InjectModel('User') private userModel: Model<UserDocument>
     ) {}
 
+  public async findAll(): Promise<[User[], Error]> {
+    try {
+      const result = await this.userModel
+        .find()
+        .lean()
+        .exec()
+
+      return [result, null]
+    } catch (error) {
+      return [null, error];
+    }
+  }
+
   public async findOne(payloads): Promise<[User, Error]> {
     try {
-      console.log("🚀 ~ file: users.repository.ts ~ line 13 ~ UsersRepository ~ findOne ~ payloads", payloads)
       const result = await this.userModel
         .findOne(payloads)
         .lean()

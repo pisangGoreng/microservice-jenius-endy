@@ -30,6 +30,8 @@ export class AuthService {
   }
 
   async generateToken(userDetails: any): Promise<[any, Error]> {
+    delete userDetails.password
+
     const token = this.jwtService.sign(userDetails)
 
     return [{message: 'ok', data: {token}}, null]
