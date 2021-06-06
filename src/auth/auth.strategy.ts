@@ -5,16 +5,15 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 
 import { AuthService } from './auth.service';
 
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(StrategyJwt) {
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: 'secret_key',
+      ignoreExpiration: true,
+      secretOrKey: process.env.SECRET_KEY
     });
-
-
   }
 
   async validate(payload: any) {
@@ -30,8 +29,6 @@ export class LocalStrategy extends PassportStrategy(StrategyLocal) {
   }
 
   async validate(username: string, password: string): Promise<any> {
-    console.log('masuk ke LocalStrategy');
-
     const user = await this.authService.validateUser(username, password);
     if (!user) {
       throw new UnauthorizedException();

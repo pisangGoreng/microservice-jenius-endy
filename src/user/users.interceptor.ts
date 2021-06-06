@@ -54,3 +54,21 @@ export class FindOneInterceptor implements NestInterceptor {
         }))
   }
 }
+export class DeleteInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    return next
+      .handle()
+      .pipe(
+        map((data) => {
+          const parsedData = JSON.parse(JSON.stringify(data))
+
+          return {
+            status_code: context.switchToHttp().getResponse().statusCode,
+            message: 'ok',
+            data: {
+              deleted_count: parsedData.deletedCount
+            }
+          }
+        }))
+  }
+}

@@ -4,7 +4,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { UserSchema } from './users.schema'
-import { UsersMiddleware } from './users.middleware';
 import { UsersRepository } from './users.repository';
 
 
@@ -15,10 +14,4 @@ import { UsersRepository } from './users.repository';
   exports: [UsersService]
 })
 
-export class UsersModule implements NestModule {
-  public configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(UsersMiddleware)
-      .forRoutes(UsersController)
-  }
-}
+export class UsersModule {}

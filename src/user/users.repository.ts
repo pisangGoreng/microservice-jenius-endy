@@ -44,21 +44,37 @@ export class UsersRepository {
     } catch (error) {
       if (error.code === 11000) {
         return [null, new HttpException(`username ${payloads.username} is exists`, HttpStatus.CONFLICT)];
-
       }
+      return [null, error];
+    }
+  }
 
-      // 200 => 0k
-      // 201 => created
-      // 202 => web hook success
+  public async update (id, payloads): Promise<[User, Error]> {
+    try {
+      const result = await this.userModel
+        .findByIdAndUpdate(id, {$set: payloads}, {upsert: true})
+        .exec()
 
-      // 400 => validasi data payload
-      // 401 => token salah / token engk ada
-      // 403 => token ada, tapi engk punya access
-      // 404 => not found
-      // 409 => ada duplicate data saat CreateUserDto
+      return [result, null]
+    } catch (error) {
+      if (error.code === 11000) {
+        return [null, new HttpException(`failed update _id: ${id}`, HttpStatus.CONFLICT)];
+      }
+      return [null, error];
+    }
+  }
 
-      // 500 => un expected error
+  public async delete(id): Promise<[any, Error]> {
+    try {
+      const result = await this.userModel
+        .deleteOne({_id: id})
+        .exec()
 
+      return [result, null]
+    } catch (error) {
+      if (error.code === 11000) {
+        return [null, new HttpException(`failed delete _id: ${id}`, HttpStatus.CONFLICT)];
+      }
       return [null, error];
     }
   }

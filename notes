@@ -1,0 +1,18 @@
+  /*
+    - execution => middleware -> guards -> pipe -> route
+    - return from UseGuards, return value after useguard will be req.
+    - cant change status in interceptor if error code, so just only throw error
+    - can change status in middleware, because middleware executed before guards
+
+      200 => 0k
+      201 => created
+      202 => web hook success
+
+      400 => validasi data payload
+      401 => token salah / token engk ada
+      403 => token ada, tapi engk punya access
+      404 => not found
+      409 => ada duplicate data saat CreateUserDto
+
+      500 => un expected error
+  */

@@ -3,8 +3,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mapKeys, snakeCase } from 'lodash'
 
-import { Request, Response, NextFunction } from 'express';
-
 @Injectable()
 export class RegisterInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
@@ -13,7 +11,16 @@ export class RegisterInterceptor implements NestInterceptor {
       .pipe(
         map((data) => {
           const parsedData = JSON.parse(JSON.stringify(data))
-          console.log('meong meong');
+          console.log(parsedData);
+
+          if (parsedData.status === HttpStatus.CONFLICT) {
+            context.switchToHttp().getResponse().status(HttpStatus.CONFLICT)
+            return {
+              status_code: context.switchToHttp().getResponse().statusCode,
+              message: parsedData.message,
+              data: null
+            }
+          }
 
           delete parsedData.__v
           delete parsedData.password
