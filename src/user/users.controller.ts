@@ -10,18 +10,18 @@ export class UsersController {
 
   }
 
-  @Get()
-  public async find () {
-    // console.log('input', input, CreateUserDto)
-    // await this.usersService.create()
-    return true
-  }
+  // @Get()
+  // public async findOne () {
+  //   const user = await this.usersService.findOne('bambang');
 
-  @Post()
-  public async create (@Body() input: CreateUserDto): Promise<CreateUserDto> {
-    console.log('input', input, CreateUserDto)
-    // await this.usersService.create()
-    return input
-  }
+  //   return user
+  // }
+
+  // @Post()
+  // public async create (@Body() input: CreateUserDto): Promise<CreateUserDto> {
+  //   console.log('input', input, CreateUserDto)
+  //   await this.usersService.create(input)
+  //   return input
+  // }
 }
 

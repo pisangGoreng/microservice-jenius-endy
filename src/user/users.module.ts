@@ -1,24 +1,24 @@
-import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { User, UserSchema } from './users.schema'
+import { UserSchema } from './users.schema'
 import { UsersMiddleware } from './users.middleware';
+import { UsersRepository } from './users.repository';
 
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
   controllers: [UsersController],
-  providers: [UsersService],
-  exports: [UsersService] // supaya user service bisa di akses di tempat lain
+  providers: [UsersService, UsersRepository],
+  exports: [UsersService]
 })
 
-export class UserModule implements NestModule {
+export class UsersModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(UsersMiddleware)
-      // .forRoutes({path: 'user', method: RequestMethod.GET})
       .forRoutes(UsersController)
   }
 }
