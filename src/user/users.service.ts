@@ -26,8 +26,6 @@ export class UsersService {
         }
     });
 
-    console.log("PARAMS", dbParamsArray)
-
     return dbParamsArray;
   }
 

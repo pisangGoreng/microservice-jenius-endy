@@ -11,7 +11,6 @@ export class RegisterInterceptor implements NestInterceptor {
       .pipe(
         map((data) => {
           const parsedData = JSON.parse(JSON.stringify(data))
-          console.log(parsedData);
 
           if (parsedData.status === HttpStatus.CONFLICT) {
             context.switchToHttp().getResponse().status(HttpStatus.CONFLICT)

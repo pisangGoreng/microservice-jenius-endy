@@ -30,11 +30,9 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(new FindInterceptor())
   public async update (
-    // @Param('id') id,
     @Query('id') id,
     @Body() updateUserDto: UpdateUserDto,
   ) {
-    console.log("🚀 ~ file: users.controller.ts ~ line 37 ~ UsersController ~ i", id)
     const [user, error] = await this.usersService.update(id, updateUserDto)
     if (error) {
       throw error
