@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "f56b3241-8b32-4a4b-be44-f86635e35fa0",
+		"name": "microservices-jenius-endy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "find - GET",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGJjZmE4NmQ0M2Y0MGI5YWNkN2UzMjIiLCJ1c2VybmFtZSI6ImVuZHk2IiwiYWNjb3VudE51bWJlciI6MTIzLCJlbWFpbEFkZHJlc3MiOiJlbWFpbEFkZHJlc3NAZ21haWwuY29tIiwiaWRlbnRpdHlOdW1iZXIiOjEyMywiY3JlYXRlZEF0IjoiMjAyMS0wNi0wNlQxNjo0MDozOC41MjlaIiwidXBkYXRlZEF0IjoiMjAyMS0wNi0wNlQxNjo0MDozOC41MjlaIiwiX192IjowLCJpYXQiOjE2MjI5OTc4ODEsImV4cCI6MTYyMjk5Nzg4N30.z0Q_j1oPXT50469NqdEuLQGUXLyPelokx8WRUK0Dw9M",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "60bcf78af88863b26f19319d",
+									"disabled": true
+								},
+								{
+									"key": "accountNumber",
+									"value": "123",
+									"disabled": true
+								},
+								{
+									"key": "identityNumber",
+									"value": "4444",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update by id - GET",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGJiNDllMjM3NzMyNGU5M2VjODdkNWMiLCJ1c2VybmFtZSI6ImJhbWJhbmciLCJhY2NvdW50TnVtYmVyIjoxMjMsImVtYWlsQWRkcmVzcyI6ImVtYWlsQWRkcmVzc0BnbWFpbC5jb20iLCJpZGVudGl0eU51bWJlciI6MTIzLCJjcmVhdGVkQXQiOiIyMDIxLTA2LTA1VDA5OjU0OjQyLjg4N1oiLCJ1cGRhdGVkQXQiOiIyMDIxLTA2LTA1VDA5OjU0OjQyLjg4N1oiLCJfX3YiOjAsImlhdCI6MTYyMjk5NDAwOCwiZXhwIjoxNjIyOTk0MDE0fQ.j9HbQXVDNDNfbXjc-CBmcT1xWbC1b1C2DNBk09HKdDw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"accountNumber\": 2121,\n    \"emailAddress\": \"kucin@gmail.com\",\n    \"identityNumber\": 3131\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users?id=60bcf78af88863b26f19319d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "60bcf78af88863b26f19319d"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete by id - DELETE",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGJiNDllMjM3NzMyNGU5M2VjODdkNWMiLCJ1c2VybmFtZSI6ImJhbWJhbmciLCJhY2NvdW50TnVtYmVyIjoxMjMsImVtYWlsQWRkcmVzcyI6ImVtYWlsQWRkcmVzc0BnbWFpbC5jb20iLCJpZGVudGl0eU51bWJlciI6MTIzLCJjcmVhdGVkQXQiOiIyMDIxLTA2LTA1VDA5OjU0OjQyLjg4N1oiLCJ1cGRhdGVkQXQiOiIyMDIxLTA2LTA1VDA5OjU0OjQyLjg4N1oiLCJfX3YiOjAsImlhdCI6MTYyMjk4NTUyNiwiZXhwIjoxNjIyOTg1NTMyfQ.y_1qQAsNgzHpAb2M-Z4GKnHBGp58Aoy7xGx2OyOB0kA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"c1233331\",\n    \"password\": \"cilukba\",\n    \"accountNumber\": 669996,\n    \"emailAddress\": \"meong@gmail.com\",\n    \"identityNumber\": 599955\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/users/60be2a80b25a066927930791",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"60be2a80b25a066927930791"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register - POST",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"endy7\",\n    \"password\": \"bukabuka\",\n    \"accountNumber\": 123,\n    \"emailAddress\": \"emailAddress@gmail.com\",\n    \"identityNumber\": 123\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login - POST",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();",
+									"pm.environment.set('token', res.data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Content-Type header generated by Postman.",
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"endy6\",\n    \"password\": \"bukabuka\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

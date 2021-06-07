@@ -12,18 +12,20 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string): Promise<[any, Error]> {
-    const [user, userError] = await this.usersService.findOne({username});
+    const [user, userError] = await this.usersService.find({username})
     if (userError) {
       return [null, userError]
     }
 
-    if (user === null) {
+    const selectedUser = user[0];
+    if (typeof selectedUser === 'undefined') {
       return [{message: 'username not found', data: null}, null]
     }
 
-    const isSamePassword = await compare(password, user.password)
-    if (user && isSamePassword) {
-      return [{message: 'ok', data: user}, null]
+
+    const isSamePassword = await compare(password, selectedUser.password)
+    if (selectedUser && isSamePassword) {
+      return [{message: 'ok', data: selectedUser}, null]
     } else {
       return [{message: 'wrong password', data: null}, null]
     }

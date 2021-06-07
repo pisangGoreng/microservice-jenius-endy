@@ -1,10 +1,9 @@
-import { Body, Controller, Get, UseGuards, Request, UseInterceptors, Param, Put, Delete, } from "@nestjs/common";
+import { Body, Controller, Get, UseGuards, UseInterceptors, Param, Put, Delete, Query } from "@nestjs/common";
 import { AuthGuard } from '@nestjs/passport';
 
-import { CreateUserDto } from "./input/create-user.dto";
+import { UpdateUserDto } from './input/update-user.dto';
 import { UsersService } from "./users.service";
-import { FindInterceptor, FindOneInterceptor, DeleteInterceptor } from './users.interceptor';
-
+import { FindInterceptor, DeleteInterceptor } from './users.interceptor';
 @Controller('/users')
 export class UsersController {
   constructor(
@@ -15,9 +14,11 @@ export class UsersController {
   @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(new FindInterceptor())
   public async find (
-    @Request() req
+    @Query('id') id,
+    @Query('accountNumber') accountNumber,
+    @Query('identityNumber') identityNumber,
   ) {
-    const [users, error] = await this.usersService.find()
+    const [users, error] = await this.usersService.find({id, accountNumber, identityNumber})
     if (error) {
       throw error
     }
@@ -25,29 +26,16 @@ export class UsersController {
     return users
   }
 
-  @Get(':id')
+  @Put()
   @UseGuards(AuthGuard('jwt'))
-  @UseInterceptors(new FindOneInterceptor())
-  public async findOne (
-    @Request() req,
-    @Param('id') id
-  ) {
-    const [user, error] = await this.usersService.findOne({_id: id})
-    if (error) {
-      throw error
-    }
-
-    return user
-  }
-
-  @Put(':id')
-  @UseGuards(AuthGuard('jwt'))
-  @UseInterceptors(new FindOneInterceptor())
+  @UseInterceptors(new FindInterceptor())
   public async update (
-    @Param('id') id,
-    @Body() createUserDto: CreateUserDto,
+    // @Param('id') id,
+    @Query('id') id,
+    @Body() updateUserDto: UpdateUserDto,
   ) {
-    const [user, error] = await this.usersService.update(id, createUserDto)
+    console.log("🚀 ~ file: users.controller.ts ~ line 37 ~ UsersController ~ i", id)
+    const [user, error] = await this.usersService.update(id, updateUserDto)
     if (error) {
       throw error
     }

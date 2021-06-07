@@ -22,10 +22,11 @@ export class UsersRepository {
     }
   }
 
-  public async findOne(payloads): Promise<[User, Error]> {
+  public async find(payloads): Promise<[User[], Error]> {
     try {
       const result = await this.userModel
-        .findOne(payloads)
+        // .findOne(payloads)
+        .find({ $or: payloads})
         .lean()
         .exec()
 
