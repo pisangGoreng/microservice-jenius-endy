@@ -17,7 +17,6 @@ import { LoginMiddleware } from './auth.middleware';
       secret: process.env.SECRET_KEY,
       signOptions: { expiresIn: '6000s' },
     }),
-
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   controllers: [AuthController],
